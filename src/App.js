@@ -72,44 +72,46 @@ const App = () => {
   };
 
   return (
-    <div className="list">
-      <h1 className="listTitle">예산 계산기</h1>
+    <div className="container">
+      <h1 className="text">예산 계산기</h1>
       {editingId ? (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSaveClick(editingId);
-          }}
-        >
-          <input
-            type="text"
-            value={editingText}
-            placeholder="제품명"
-            onChange={(e) => setEditingText(e.target.value)}
-          />
-          <input
-            type="number"
-            value={editingPrice}
-            placeholder="가격"
-            onChange={(e) => setEditingPrice(e.target.value)}
-          />
-          <button type="submit">저장</button>
-          <button
-            onClick={() => {
-              // 취소 버튼 클릭시 수정 모드 종료
-              setEditingId(null);
-              setEditingText("");
-              setEditingPrice("");
+        <div className="container">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSaveClick(editingId);
             }}
+            className="task-form"
           >
-            취소
-          </button>
-        </form>
+            <input
+              type="text"
+              value={editingText}
+              placeholder="제품명"
+              onChange={(e) => setEditingText(e.target.value)}
+            />
+            <input
+              type="number"
+              value={editingPrice}
+              placeholder="가격"
+              onChange={(e) => setEditingPrice(e.target.value)}
+            />
+            <button type="submit">저장</button>
+            <button
+              onClick={() => {
+                // 취소 버튼 클릭시 수정 모드 종료
+                setEditingId(null);
+                setEditingText("");
+                setEditingPrice("");
+              }}
+            >
+              취소
+            </button>
+          </form>
+        </div>
       ) : (
         // 기본 추가 모드일 때 표시할 폼
-        <form onSubmit={addTask}>
+        <form onSubmit={addTask} className="task-form">
           <input
-            className="inputItem"
             type="text"
             value={task}
             placeholder="제품명"
