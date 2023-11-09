@@ -1,1 +1,14 @@
+body {
+  background: aliceblue;
+}
 
+.listTitle {
+  text-align: center;
+}
+
+.inputItem {
+  text-align: center;
+}
+
+.addAlarm {
+}

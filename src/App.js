@@ -29,6 +29,13 @@ const App = () => {
     setEditingId(null);
     setEditingText("");
     setEditingPrice("");
+    setShowAlert(true);
+    setAlertMessage("아이템이 수정되었습니다.");
+
+    setTimeout(() => {
+      setShowAlert(false);
+      setAlertMessage("");
+    }, 3000);
   };
 
   const addTask = (e) => {
@@ -67,55 +74,65 @@ const App = () => {
   return (
     <div className="list">
       <h1 className="listTitle">예산 계산기</h1>
-      <form onSubmit={addTask}>
-        <input
-          type="text"
-          value={task}
-          placeholder="제품명"
-          onChange={(e) => setTask(e.target.value)}
-          required
-        />
-        <input
-          type="number"
-          value={price}
-          placeholder="가격"
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
-        <button type="submit">추가</button>
-      </form>
+      {editingId ? (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSaveClick(editingId);
+          }}
+        >
+          <input
+            type="text"
+            value={editingText}
+            placeholder="제품명"
+            onChange={(e) => setEditingText(e.target.value)}
+          />
+          <input
+            type="number"
+            value={editingPrice}
+            placeholder="가격"
+            onChange={(e) => setEditingPrice(e.target.value)}
+          />
+          <button type="submit">저장</button>
+          <button
+            onClick={() => {
+              // 취소 버튼 클릭시 수정 모드 종료
+              setEditingId(null);
+              setEditingText("");
+              setEditingPrice("");
+            }}
+          >
+            취소
+          </button>
+        </form>
+      ) : (
+        // 기본 추가 모드일 때 표시할 폼
+        <form onSubmit={addTask}>
+          <input
+            className="inputItem"
+            type="text"
+            value={task}
+            placeholder="제품명"
+            onChange={(e) => setTask(e.target.value)}
+          />
+          <input
+            type="number"
+            value={price}
+            placeholder="가격"
+            onChange={(e) => setPrice(e.target.value)}
+          />
+          <button type="submit">추가</button>
+        </form>
+      )}
       <ul>
         {tasks.map((task) => (
-          <li key={task.id} style={{ textDecoration: task.completed ? "line-through" : "none" }}>
-            {editingId === task.id ? (
-              // 수정 상태인 경우 입력 필드 표시
-              <>
-                <input
-                  type="text"
-                  value={editingText}
-                  onChange={(e) => setEditingText(e.target.value)}
-                />
-                <input
-                  type="number"
-                  value={editingPrice}
-                  onChange={(e) => setEditingPrice(e.target.value)}
-                />
-                <button onClick={() => handleSaveClick(task.id)}>저장</button>
-              </>
-            ) : (
-              // 비수정 상태인 경우 텍스트 표시
-              <>
-                {task.text} - {task.price}원
-                <button onClick={() => handleEditClick(task)}>수정</button>
-              </>
-            )}
-            {editingId !== task.id && (
-              // 수정 중이 아닌 경우에만 삭제 버튼 표시
-              <button onClick={() => removeTask(task.id)}>삭제</button>
-            )}
+          <li key={task.id}>
+            {task.text} - {task.price}원<button onClick={() => handleEditClick(task)}>수정</button>
+            <button onClick={() => removeTask(task.id)}>삭제</button>
           </li>
         ))}
       </ul>
+
       {showAlert && <div className="addAlarm">{alertMessage}</div>}
       <h2>총지출: {getTotalPrice()}원</h2>
     </div>
