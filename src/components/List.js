@@ -1,6 +1,6 @@
 import React from "react";
 
-const List = () => {
+const List = ({ handleEditClick, removeTask, tasks }) => {
 	return (
 		<ul>
 			{tasks.map((task) => (

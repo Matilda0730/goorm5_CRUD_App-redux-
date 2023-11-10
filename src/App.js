@@ -1,7 +1,8 @@
 // "use strict";
 import React, { useState } from "react";
 import "./App.css";
-import List from "./components/List";
+import List from "./components/List.js";
+import Form from "./components/Form.js";
 
 const App = () => {
 	const [tasks, setTasks] = useState([]);
@@ -75,68 +76,21 @@ const App = () => {
 	return (
 		<div className="container">
 			<h1 className="text">예산 계산기</h1>
-			{editingId ? (
-				<div className="container">
-					<form
-						onSubmit={(e) => {
-							e.preventDefault();
-							handleSaveClick(editingId);
-						}}
-						className="task-form"
-					>
-						<input
-							type="text"
-							value={editingText}
-							placeholder="제품명"
-							onChange={(e) => setEditingText(e.target.value)}
-						/>
-						<input
-							type="number"
-							value={editingPrice}
-							placeholder="가격"
-							onChange={(e) => setEditingPrice(e.target.value)}
-						/>
-						<button type="submit">저장</button>
-						<button
-							onClick={() => {
-								// 취소 버튼 클릭시 수정 모드 종료
-								setEditingId(null);
-								setEditingText("");
-								setEditingPrice("");
-							}}
-						>
-							취소
-						</button>
-					</form>
-				</div>
-			) : (
-				// 기본 추가 모드일 때 표시할 폼
-				<form onSubmit={addTask} className="task-form">
-					<input
-						type="text"
-						value={task}
-						placeholder="제품명"
-						onChange={(e) => setTask(e.target.value)}
-					/>
-					<input
-						type="number"
-						value={price}
-						placeholder="가격"
-						onChange={(e) => setPrice(e.target.value)}
-					/>
-					<button type="submit">추가</button>
-				</form>
-			)}
-			<List />
-			<ul>
-				{tasks.map((task) => (
-					<li key={task.id}>
-						{task.text} - {task.price}원
-						<button onClick={() => handleEditClick(task)}>수정</button>
-						<button onClick={() => removeTask(task.id)}>삭제</button>
-					</li>
-				))}
-			</ul>
+			<Form
+				handleSaveClick={handleSaveClick}
+				addTask={addTask}
+				editingId={editingId}
+				editingText={editingText}
+				setEditingText={setEditingText}
+				editingPrice={editingPrice}
+				setEditingPrice={setEditingPrice}
+				setEditingId={setEditingId}
+				task={task}
+				setTask={setTask}
+				price={price}
+				setPrice={setPrice}
+			/>
+			<List handleEditClick={handleEditClick} removeTask={removeTask} tasks={tasks} />
 
 			{showAlert && <div className="addAlarm">{alertMessage}</div>}
 			<h2>총지출: {getTotalPrice()}원</h2>
