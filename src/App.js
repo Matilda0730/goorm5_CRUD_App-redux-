@@ -75,6 +75,7 @@ const App = () => {
 
 	return (
 		<div className="container">
+			{showAlert && <div className="addAlarm">{alertMessage}</div>}
 			<h1 className="text">예산 계산기</h1>
 			<Form
 				handleSaveClick={handleSaveClick}
@@ -91,9 +92,7 @@ const App = () => {
 				setPrice={setPrice}
 			/>
 			<List handleEditClick={handleEditClick} removeTask={removeTask} tasks={tasks} />
-
-			{showAlert && <div className="addAlarm">{alertMessage}</div>}
-			<h2>총지출: {getTotalPrice()}원</h2>
+			<h2>총지출: {`${getTotalPrice()}원`}</h2>
 		</div>
 	);
 };
