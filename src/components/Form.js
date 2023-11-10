@@ -28,18 +28,22 @@ const Form = ({
 					className="task-form"
 				>
 					<input
+						className="input-box"
 						type="text"
 						value={editingText}
 						placeholder="제품명"
 						onChange={(e) => setEditingText(e.target.value)}
+						required
 					/>
 					<input
+						className="input-box"
 						type="number"
 						value={editingPrice}
 						placeholder="가격"
 						onChange={(e) => setEditingPrice(e.target.value)}
+						required
 					/>
-					<button type="submit" className="button-48">
+					<button type="submit" className="button-81">
 						<FiCheck />
 					</button>
 					<button
@@ -49,7 +53,7 @@ const Form = ({
 							setEditingText("");
 							setEditingPrice("");
 						}}
-						className="button-48"
+						className="button-81"
 					>
 						<FiX> </FiX>
 					</button>
@@ -61,18 +65,22 @@ const Form = ({
 			<div className="container">
 				<form onSubmit={addTask} className="task-form">
 					<input
+						className="input-box"
 						type="text"
 						value={task}
 						placeholder="제품명"
 						onChange={(e) => setTask(e.target.value)}
+						required
 					/>
 					<input
+						className="input-box"
 						type="number"
 						value={price}
 						placeholder="가격"
 						onChange={(e) => setPrice(e.target.value)}
+						required
 					/>
-					<button type="submit">
+					<button type="submit" className="button-81">
 						<FiPlus></FiPlus>
 					</button>
 				</form>

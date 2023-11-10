@@ -1,5 +1,5 @@
 // "use strict";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import List from "./components/List.js";
 import Form from "./components/Form.js";
@@ -73,10 +73,30 @@ const App = () => {
 		return tasks.reduce((total, item) => total + item.price, 0);
 	};
 
+	const clearAllTasks = () => {
+		setTasks([]);
+		localStorage.removeItem("tasks");
+		// 추가적으로 알림 메시지를 표시하고 싶다면 여기에 코드 추가
+		setShowAlert(true);
+		setAlertMessage("모든 데이터가 삭제되었습니다.");
+		setTimeout(() => setShowAlert(false), 3000);
+	};
+
+	useEffect(() => {
+		const storedTasks = localStorage.getItem("tasks");
+		if (storedTasks) {
+			setTasks(JSON.parse(storedTasks));
+		}
+	}, []);
+
+	useEffect(() => {
+		localStorage.setItem("tasks", JSON.stringify(tasks));
+	}, [tasks]);
+
 	return (
 		<div className="container">
 			{showAlert && <div className="addAlarm">{alertMessage}</div>}
-			<h1 className="text">예산 계산기</h1>
+			<h1 className="text">Budget Calculator</h1>
 			<Form
 				handleSaveClick={handleSaveClick}
 				addTask={addTask}
@@ -92,7 +112,10 @@ const App = () => {
 				setPrice={setPrice}
 			/>
 			<List handleEditClick={handleEditClick} removeTask={removeTask} tasks={tasks} />
-			<h2>총지출: {`${getTotalPrice()}원`}</h2>
+			<h2>Total: {`${getTotalPrice().toLocaleString()}원`}</h2>
+			<button onClick={clearAllTasks} className="clear-button">
+				모두 지우기
+			</button>
 		</div>
 	);
 };
