@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import List from "./components/List.js";
 import Form from "./components/Form.js";
+import Alert from "./components/Alert.js";
+import { toast } from "react-toastify";
 
 const App = () => {
 	const [tasks, setTasks] = useState([]);
@@ -13,6 +15,7 @@ const App = () => {
 	const [editingId, setEditingId] = useState(null);
 	const [editingText, setEditingText] = useState("");
 	const [editingPrice, setEditingPrice] = useState("");
+	const [alertColor, setAlertColor] = useState("");
 
 	const handleEditClick = (task) => {
 		setEditingId(task.id); // 현재 편집 중인 할 일의 ID 설정해주기
@@ -56,6 +59,7 @@ const App = () => {
 		setPrice("");
 
 		setShowAlert(true);
+		setAlertColor("green");
 		setAlertMessage("아이템이 추가되었습니다.");
 		setTimeout(() => setShowAlert(false), 3000);
 	};
@@ -63,6 +67,7 @@ const App = () => {
 	const removeTask = (id) => {
 		setTasks(tasks.filter((task) => task.id !== id));
 		setShowAlert(true);
+		setAlertColor("red");
 		setAlertMessage("아이템이 삭제되었습니다.");
 		setTimeout(() => {
 			setAlertMessage("");
@@ -78,6 +83,7 @@ const App = () => {
 		localStorage.removeItem("tasks");
 		// 추가적으로 알림 메시지를 표시하고 싶다면 여기에 코드 추가
 		setShowAlert(true);
+		setAlertColor("blue");
 		setAlertMessage("모든 데이터가 삭제되었습니다.");
 		setTimeout(() => setShowAlert(false), 3000);
 	};
@@ -95,7 +101,7 @@ const App = () => {
 
 	return (
 		<div className="container">
-			{showAlert && <div className="addAlarm">{alertMessage}</div>}
+			{showAlert && <Alert message={alertMessage} color={alertColor} />}
 			<h1 className="text">Budget Calculator</h1>
 			<Form
 				handleSaveClick={handleSaveClick}
