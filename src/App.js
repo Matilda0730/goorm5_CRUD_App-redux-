@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import List from "./components/List.js";
 import Form from "./components/Form.js";
-import Alert from "./components/Alert.js";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -11,13 +10,10 @@ import { ToastContainer } from "react-toastify";
 const App = () => {
 	const [tasks, setTasks] = useState([]);
 	const [task, setTask] = useState("");
-	const [showAlert, setShowAlert] = useState(false);
-	const [alertMessage, setAlertMessage] = useState("");
 	const [price, setPrice] = useState("");
 	const [editingId, setEditingId] = useState(null);
 	const [editingText, setEditingText] = useState("");
 	const [editingPrice, setEditingPrice] = useState("");
-	const [alertColor, setAlertColor] = useState("");
 	const toastOptions = {
 		position: "top-center",
 		autoClose: 5000,
@@ -90,11 +86,7 @@ const App = () => {
 	const clearAllTasks = () => {
 		setTasks([]);
 		localStorage.removeItem("tasks");
-		// 추가적으로 알림 메시지를 표시하고 싶다면 여기에 코드 추가
-		setShowAlert(true);
-		setAlertColor("blue");
-		setAlertMessage("모든 데이터가 삭제되었습니다.");
-		setTimeout(() => setShowAlert(false), 3000);
+		showToastError("모든 아이템이 삭제되었습니다.");
 	};
 
 	useEffect(() => {
@@ -122,7 +114,7 @@ const App = () => {
 				pauseOnHover
 				theme="colored"
 			/>
-			{showAlert && <Alert message={alertMessage} color={alertColor} />}
+
 			<h1 className="text">Budget Calculator</h1>
 			<Form
 				handleSaveClick={handleSaveClick}
