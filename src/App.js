@@ -5,6 +5,8 @@ import List from "./components/List.js";
 import Form from "./components/Form.js";
 import Alert from "./components/Alert.js";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
 	const [tasks, setTasks] = useState([]);
@@ -16,6 +18,27 @@ const App = () => {
 	const [editingText, setEditingText] = useState("");
 	const [editingPrice, setEditingPrice] = useState("");
 	const [alertColor, setAlertColor] = useState("");
+	const toastOptions = {
+		position: "top-center",
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+	};
+
+	const showToastSuccess = (message) => {
+		toast.success(message, toastOptions);
+	};
+
+	const showToastWarn = (message) => {
+		toast.warn(message, toastOptions);
+	};
+
+	const showToastError = (message) => {
+		toast.error(message, toastOptions);
+	};
 
 	const handleEditClick = (task) => {
 		setEditingId(task.id); // 현재 편집 중인 할 일의 ID 설정해주기
@@ -34,13 +57,7 @@ const App = () => {
 		setEditingId(null);
 		setEditingText("");
 		setEditingPrice("");
-		setShowAlert(true);
-		setAlertMessage("아이템이 수정되었습니다.");
-
-		setTimeout(() => {
-			setShowAlert(false);
-			setAlertMessage("");
-		}, 3000);
+		showToastWarn("아이템이 수정되었습니다.");
 	};
 
 	const addTask = (e) => {
@@ -58,20 +75,12 @@ const App = () => {
 		setTask("");
 		setPrice("");
 
-		setShowAlert(true);
-		setAlertColor("green");
-		setAlertMessage("아이템이 추가되었습니다.");
-		setTimeout(() => setShowAlert(false), 3000);
+		showToastSuccess("아이템이 추가되었습니다.");
 	};
 
 	const removeTask = (id) => {
 		setTasks(tasks.filter((task) => task.id !== id));
-		setShowAlert(true);
-		setAlertColor("red");
-		setAlertMessage("아이템이 삭제되었습니다.");
-		setTimeout(() => {
-			setAlertMessage("");
-		}, 3000);
+		showToastError("아이템이 삭제되었습니다.");
 	};
 
 	const getTotalPrice = () => {
@@ -101,6 +110,18 @@ const App = () => {
 
 	return (
 		<div className="container">
+			<ToastContainer
+				position="top-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="colored"
+			/>
 			{showAlert && <Alert message={alertMessage} color={alertColor} />}
 			<h1 className="text">Budget Calculator</h1>
 			<Form
