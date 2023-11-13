@@ -6,6 +6,7 @@ import Form from "./components/Form.js";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import ClearAllTasks from "./components/ClearAllTasks.js";
 
 const App = () => {
 	const [tasks, setTasks] = useState([]);
@@ -93,12 +94,6 @@ const App = () => {
 		return tasks.reduce((total, item) => total + item.price, 0);
 	};
 
-	const clearAllTasks = () => {
-		setTasks([]);
-		localStorage.removeItem("tasks");
-		showToastError("모든 아이템이 삭제되었습니다.");
-	};
-
 	useEffect(() => {
 		const storedTasks = localStorage.getItem("tasks");
 		if (storedTasks) {
@@ -146,9 +141,7 @@ const App = () => {
 				onDragEnd={handleEnd}
 			/>{" "}
 			<h2>Total: {`${getTotalPrice().toLocaleString()}원`}</h2>
-			<button onClick={clearAllTasks} className="clear-button">
-				모두 지우기
-			</button>
+			<ClearAllTasks setTasks={setTasks} showToastError={showToastError} />
 		</div>
 	);
 };

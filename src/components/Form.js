@@ -2,6 +2,7 @@ import React from "react";
 import { FiCheck } from "react-icons/fi";
 import { FiX } from "react-icons/fi";
 import { FiPlus } from "react-icons/fi";
+import InputField from "./InputField";
 
 const Form = ({
 	handleSaveClick,
@@ -27,21 +28,19 @@ const Form = ({
 					}}
 					className="task-form"
 				>
-					<input
-						className="input-box"
+					<InputField
 						type="text"
 						value={editingText}
 						placeholder="제품명"
 						onChange={(e) => setEditingText(e.target.value)}
-						required
-					/>
-					<input
 						className="input-box"
+					/>
+					<InputField
 						type="number"
 						value={editingPrice}
 						placeholder="가격"
 						onChange={(e) => setEditingPrice(e.target.value)}
-						required
+						className="input-box"
 					/>
 					<button type="submit" className="button-81">
 						<FiCheck />
@@ -64,21 +63,19 @@ const Form = ({
 		return (
 			<div className="container">
 				<form onSubmit={addTask} className="task-form">
-					<input
-						className="input-box"
+					<InputField
 						type="text"
 						value={task}
 						placeholder="제품명"
 						onChange={(e) => setTask(e.target.value)}
-						required
-					/>
-					<input
 						className="input-box"
+					/>
+					<InputField
 						type="number"
 						value={price}
 						placeholder="가격"
 						onChange={(e) => setPrice(e.target.value)}
-						required
+						className="input-box"
 					/>
 					<button type="submit" className="button-81">
 						<FiPlus></FiPlus>
