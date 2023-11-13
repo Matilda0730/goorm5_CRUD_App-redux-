@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputField = ({ type, value, placeholder, onChange, className }) => {
+const InputField = React.memo(({ type, value, placeholder, onChange, className }) => {
 	return (
 		<input
 			className={className}
@@ -11,6 +11,6 @@ const InputField = ({ type, value, placeholder, onChange, className }) => {
 			required
 		/>
 	);
-};
+});
 
 export default InputField;

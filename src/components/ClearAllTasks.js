@@ -1,6 +1,7 @@
 import React from "react";
 
-function ClearAllTasks({ setTasks, showToastError }) {
+const ClearAllTasks = React.memo(({ setTasks, showToastError }) => {
+	console.log("clear component");
 	const clearAllTasks = () => {
 		setTasks([]);
 		localStorage.removeItem("tasks");
@@ -11,6 +12,6 @@ function ClearAllTasks({ setTasks, showToastError }) {
 			Delete All
 		</button>
 	);
-}
+});
 
 export default ClearAllTasks;

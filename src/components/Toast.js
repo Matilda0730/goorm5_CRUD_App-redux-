@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 // import 'react-toastify/dist/ReactToastify.min.css';
 
 function App() {
+	console.log("Toast component");
 	const notify = () => toast("Wow so easy !");
 	return (
 		<div>

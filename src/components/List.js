@@ -2,7 +2,8 @@ import React from "react";
 import { FiTrash2, FiEdit2 } from "react-icons/fi";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-const List = ({ handleEditClick, removeTask, tasks, onDragEnd }) => {
+const List = React.memo(({ handleEditClick, removeTask, tasks, onDragEnd }) => {
+	console.log("List component");
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>
 			<Droppable droppableId="item-drop">
@@ -44,6 +45,6 @@ const List = ({ handleEditClick, removeTask, tasks, onDragEnd }) => {
 			</Droppable>
 		</DragDropContext>
 	);
-};
+});
 
 export default List;
