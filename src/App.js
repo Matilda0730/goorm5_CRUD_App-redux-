@@ -24,6 +24,16 @@ const App = () => {
 		progress: undefined,
 	};
 
+	const handleEnd = (result) => {
+		if (!result.destination) return;
+		const newItemData = Array.from(tasks);
+
+		const [reorderedItem] = newItemData.splice(result.source.index, 1);
+		newItemData.splice(result.destination.index, 0, reorderedItem);
+
+		setTasks(newItemData);
+	};
+
 	const showToastSuccess = (message) => {
 		toast.success(message, toastOptions);
 	};
@@ -114,7 +124,6 @@ const App = () => {
 				pauseOnHover
 				theme="colored"
 			/>
-
 			<h1 className="text">Budget Calculator</h1>
 			<Form
 				handleSaveClick={handleSaveClick}
@@ -130,7 +139,12 @@ const App = () => {
 				price={price}
 				setPrice={setPrice}
 			/>
-			<List handleEditClick={handleEditClick} removeTask={removeTask} tasks={tasks} />
+			<List
+				handleEditClick={handleEditClick}
+				removeTask={removeTask}
+				tasks={tasks}
+				onDragEnd={handleEnd}
+			/>{" "}
 			<h2>Total: {`${getTotalPrice().toLocaleString()}원`}</h2>
 			<button onClick={clearAllTasks} className="clear-button">
 				모두 지우기

@@ -153,3 +153,11 @@ button {
 .clear-button:hover {
 	background-color: #d32f2f; /* 마우스 오버 시 색상 변경 */
 }
+
+.itemsUl:hover {
+	background-color: rgb(252, 252, 252);
+}
+
+.itemsUlDraggingOver {
+	background-color: #f7f7f7;
+}
