@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import ClearAllTasks from "./components/ClearAllTasks.js";
+import { createStore } from "redux";
+import { Provider, useSelector, useDispatch, connect } from "react-redux";
 
 const App = () => {
 	const [tasks, setTasks] = useState([]);
