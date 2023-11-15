@@ -1,14 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { tasks } from App.js;
 
 const initialState = {
-	total: 0,
+	total: [],
 };
 
-const totalSlice = createSlice({
-	initialState,
-	reducers: {
-		setTotal(state, action) {
-			state.total = action.payload;
-		},
-	},
+const TOTAL = 'TOTAL'
+
+const totalSlice = () => ({
+	type: TOTAL,
+	
+	tasks.reduce((total, item) => total + item.price, 0)
+
 });
