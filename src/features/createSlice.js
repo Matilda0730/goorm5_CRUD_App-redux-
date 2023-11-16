@@ -49,6 +49,16 @@ export const tasksSlice = createSlice({
 		clearAllTasks: (state) => {
 			state.tasks = [];
 		},
+		editTask: (state, action) => {
+			const { id, text, price } = action.payload;
+			const updatedItems = state.tasks.map((item) => {
+				if (item.id === id) {
+					return { ...item, text, price };
+				}
+				return item;
+			});
+			state.tasks = updatedItems;
+		}, //이름 맞추기
 	},
 });
 
@@ -64,6 +74,7 @@ export const {
 	clearAllTasks,
 	getTotalPrice,
 	handleRemoveTask,
+	editTask,
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

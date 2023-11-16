@@ -7,11 +7,13 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
 	addTasks,
+	editTask,
 	setEditingId,
 	setEditingPrice,
 	setEditingText,
 	setPrice,
 	setTask,
+	setTasks,
 } from "../features/createSlice";
 import { showToastSuccess, showToastWarn } from "../utils/toastmessage";
 
@@ -27,21 +29,17 @@ const Form = React.memo(() => {
 	const price = useSelector((state) => state.tasks.price);
 
 	const handleSaveClick = (id) => {
-		addTasks(
-			tasks.map((task) => {
-				if (task.id === id) {
-					return {
-						...task,
-						text: editingText,
-						price: parseFloat(editingPrice) || 0,
-					};
-				}
-				return task;
+		dispatch(
+			editTask({
+				id,
+				text: editingText,
+				price: parseFloat(editingPrice) || 0,
 			})
 		);
-		setEditingId(null);
-		setEditingText("");
-		setEditingPrice("");
+
+		dispatch(setEditingId(null));
+		dispatch(setEditingText(""));
+		dispatch(setEditingPrice(""));
 		showToastWarn("아이템이 수정되었습니다.");
 	};
 

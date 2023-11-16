@@ -45,23 +45,23 @@ const App = () => {
 		return tasks.reduce((total, item) => total + item.price, 0);
 	};
 
-	useEffect(() => {
-		const storedTasks = localStorage.getItem("tasks");
-		if (storedTasks) {
-			dispatch(setTasks(JSON.parse(storedTasks)));
-		}
-	}, [dispatch]);
+	// useEffect(() => {
+	// 	const storedTasks = localStorage.getItem("tasks");
+	// 	if (storedTasks) {
+	// 		dispatch(setTasks(JSON.parse(storedTasks)));
+	// 	}
+	// }, [dispatch]);
 
-	useEffect(() => {
-		const storedTasks = localStorage.getItem("tasks");
-		if (storedTasks) {
-			dispatch(setTasks(JSON.parse(storedTasks)));
-		}
-	}, [dispatch]);
+	// useEffect(() => {
+	// 	const storedTasks = localStorage.getItem("tasks");
+	// 	if (storedTasks) {
+	// 		dispatch(setTasks(JSON.parse(storedTasks)));
+	// 	}
+	// }, [dispatch]);
 
-	useEffect(() => {
-		localStorage.setItem("tasks", JSON.stringify(tasks));
-	}, [tasks]);
+	// useEffect(() => {
+	// 	localStorage.setItem("tasks", JSON.stringify(tasks));
+	// }, [tasks]);
 
 	return (
 		<div className="container">
