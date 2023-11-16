@@ -46,22 +46,15 @@ const App = () => {
 	};
 
 	// useEffect(() => {
-	// 	const storedTasks = localStorage.getItem("tasks");
-	// 	if (storedTasks) {
-	// 		dispatch(setTasks(JSON.parse(storedTasks)));
-	// 	}
-	// }, [dispatch]);
-
-	// useEffect(() => {
-	// 	const storedTasks = localStorage.getItem("tasks");
-	// 	if (storedTasks) {
-	// 		dispatch(setTasks(JSON.parse(storedTasks)));
-	// 	}
-	// }, [dispatch]);
-
-	// useEffect(() => {
 	// 	localStorage.setItem("tasks", JSON.stringify(tasks));
 	// }, [tasks]);
+
+	// useEffect(() => {
+	// 	const storedTasks = localStorage.getItem("tasks");
+	// 	if (storedTasks) {
+	// 		dispatch(setTasks(JSON.parse(storedTasks)));
+	// 	}
+	// }, []);
 
 	return (
 		<div className="container">

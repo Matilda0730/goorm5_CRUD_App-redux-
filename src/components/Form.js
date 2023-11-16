@@ -21,7 +21,6 @@ const Form = React.memo(() => {
 	console.log("Form component");
 	const dispatch = useDispatch();
 
-	const tasks = useSelector((state) => state.tasks.tasks);
 	const editingId = useSelector((state) => state.tasks.editingId);
 	const editingText = useSelector((state) => state.tasks.editingText);
 	const editingPrice = useSelector((state) => state.tasks.editingPrice);
