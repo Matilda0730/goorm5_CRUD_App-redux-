@@ -78,7 +78,7 @@ const Form = React.memo(() => {
 						value={editingPrice}
 						placeholder="가격"
 						onChange={(e) => {
-							setEditingPrice(e.target.value);
+							dispatch(setEditingPrice(e.target.value));
 						}}
 						className="input-box"
 					/>
@@ -87,9 +87,9 @@ const Form = React.memo(() => {
 					</button>
 					<button
 						onClick={() => {
-							setEditingId(null);
-							setEditingText("");
-							setEditingPrice("");
+							dispatch(setEditingId(null));
+							dispatch(setEditingText(""));
+							dispatch(setEditingPrice(""));
 						}}
 						className="button-81"
 					>
