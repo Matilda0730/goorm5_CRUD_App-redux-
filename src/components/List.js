@@ -2,15 +2,18 @@ import React from "react";
 import { FiTrash2, FiEdit2 } from "react-icons/fi";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-const List = React.memo(({ handleEditClick, removeTask, tasks, onDragEnd }) => {
-	console.log("List component");
+const List = ({ handleEditClick, removeTask, tasks, onDragEnd }) => {
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>
 			<Droppable droppableId="item-drop">
 				{(provided, snapshot) => (
 					<ul {...provided.droppableProps} ref={provided.innerRef} className={`itemsUl`}>
 						{tasks.map((task, index) => (
-							<Draggable key={task.id} draggableId={task.id.toString()} index={index}>
+							<Draggable
+								key={task.id}
+								draggableId={task.id ? task.id.toString() : ""}
+								index={index}
+							>
 								{(provided) => (
 									<li
 										ref={provided.innerRef}
@@ -45,6 +48,6 @@ const List = React.memo(({ handleEditClick, removeTask, tasks, onDragEnd }) => {
 			</Droppable>
 		</DragDropContext>
 	);
-});
+};
 
 export default List;

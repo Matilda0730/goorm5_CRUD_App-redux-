@@ -13,10 +13,9 @@ export const tasksSlice = createSlice({
 	name: "tasks",
 	initialState,
 	reducers: {
-		// setTasks(state, action) {
-		//     state.tasks = [...state.tasks, action.payload]
-		//     console.log(state.tasks)
-		// },
+		setTasks(state, action) {
+			state.tasks = [...state.tasks, action.payload];
+		},
 		setTask: (state, action) => {
 			state.task = action.payload;
 		},
@@ -41,12 +40,15 @@ export const tasksSlice = createSlice({
 			};
 			state.tasks.push(newTask);
 		},
-		// removeTask: (state, action) => {
-		// 	return state.filter((task) => task.id !== action.payload);
-		// },
-		// getTotalPrice: (state, action) => {
-		// 	return state.reduce((total, item) => total + item.price, 0);
-		// },
+		removeTask: (state, action) => {
+			state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+		},
+		getTotalPrice: (state) => {
+			state.tasks.reduce((total, item) => total + item.price, 0);
+		},
+		clearAllTasks: (state) => {
+			state.tasks = [];
+		},
 	},
 });
 
@@ -59,6 +61,9 @@ export const {
 	setEditingId,
 	setEditingText,
 	setEditingPrice,
+	clearAllTasks,
+	getTotalPrice,
+	handleRemoveTask,
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

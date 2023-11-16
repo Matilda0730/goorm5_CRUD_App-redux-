@@ -1,4 +1,4 @@
-//"use strict";
+//delete all, 수정 안됨, 가끔 undefined 값이 들어가있음
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import List from "./components/List.js";
@@ -8,35 +8,36 @@ import ClearAllTasks from "./components/ClearAllTasks.js";
 import { useDispatch } from "react-redux";
 import { showToastError, showToastSuccess, showToastWarn } from "./utils/toastmessage.js";
 import Form from "./components/Form.js";
+import { useSelector } from "react-redux";
+import {
+	setTasks,
+	setEditingId,
+	setEditingText,
+	setEditingPrice,
+	removeTask,
+	getTotalPrice,
+} from "./features/createSlice";
 
 const App = () => {
-	const Dispatch = useDispatch();
-
-	const [tasks, setTasks] = useState([]);
-	const [task, setTask] = useState("");
-	const [price, setPrice] = useState("");
-	const [editingId, setEditingId] = useState(null);
-	const [editingText, setEditingText] = useState("");
-	const [editingPrice, setEditingPrice] = useState("");
+	const dispatch = useDispatch();
+	const tasks = useSelector((state) => state.tasks.tasks);
 
 	const handleEnd = (result) => {
 		if (!result.destination) return;
 		const newItemData = Array.from(tasks);
-
 		const [reorderedItem] = newItemData.splice(result.source.index, 1);
 		newItemData.splice(result.destination.index, 0, reorderedItem);
-
-		setTasks(newItemData);
+		dispatch(setTasks(newItemData));
 	};
 
 	const handleEditClick = (task) => {
-		setEditingId(task.id); // 현재 편집 중인 할 일의 ID 설정해주기
-		setEditingText(task.text); // 수정 입력 창에 텍스트 설정해주기
-		setEditingPrice(task.price.toString()); // 수정 입력 창에 가격 설정해주기
+		dispatch(setEditingId(task.id));
+		dispatch(setEditingText(task.text));
+		dispatch(setEditingPrice(task.price.toString()));
 	};
 
-	const removeTask = (id) => {
-		setTasks(tasks.filter((task) => task.id !== id));
+	const handleRemoveTask = (id) => {
+		dispatch(removeTask(id));
 		showToastError("아이템이 삭제되었습니다.");
 	};
 
@@ -47,9 +48,16 @@ const App = () => {
 	useEffect(() => {
 		const storedTasks = localStorage.getItem("tasks");
 		if (storedTasks) {
-			setTasks(JSON.parse(storedTasks));
+			dispatch(setTasks(JSON.parse(storedTasks)));
 		}
-	}, []);
+	}, [dispatch]);
+
+	useEffect(() => {
+		const storedTasks = localStorage.getItem("tasks");
+		if (storedTasks) {
+			dispatch(setTasks(JSON.parse(storedTasks)));
+		}
+	}, [dispatch]);
 
 	useEffect(() => {
 		localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -62,11 +70,11 @@ const App = () => {
 			<Form />
 			<List
 				handleEditClick={handleEditClick}
-				removeTask={removeTask}
+				removeTask={handleRemoveTask}
 				tasks={tasks}
 				onDragEnd={handleEnd}
 			/>{" "}
-			<h2>Total: {`${getTotalPrice().toLocaleString()}원`}</h2>
+			<h2>Total: {`${getTotalPrice().toLocaleString()}원`}</h2>{" "}
 			<ClearAllTasks setTasks={setTasks} showToastError={showToastError} />
 		</div>
 	);

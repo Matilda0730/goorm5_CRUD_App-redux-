@@ -87,7 +87,6 @@ const Form = React.memo(() => {
 					</button>
 					<button
 						onClick={() => {
-							// 취소 버튼 클릭시 수정 모드 종료
 							setEditingId(null);
 							setEditingText("");
 							setEditingPrice("");
