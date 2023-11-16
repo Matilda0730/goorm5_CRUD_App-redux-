@@ -3,10 +3,10 @@ import { FiTrash2, FiEdit2 } from "react-icons/fi";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import {
 	removeTask,
+	setDnDTasks,
 	setEditingId,
 	setEditingPrice,
 	setEditingText,
-	setTasks,
 } from "../features/createSlice";
 import { useDispatch } from "react-redux";
 import { showToastError } from "../utils/toastmessage";
@@ -20,7 +20,7 @@ const List = () => {
 		const newItemData = Array.from(tasks);
 		const [reorderedItem] = newItemData.splice(result.source.index, 1);
 		newItemData.splice(result.destination.index, 0, reorderedItem);
-		dispatch(setTasks(newItemData));
+		dispatch(setDnDTasks(newItemData));
 	};
 
 	const handleEditClick = (task) => {
@@ -40,12 +40,13 @@ const List = () => {
 					<ul {...provided.droppableProps} ref={provided.innerRef} className={`itemsUl`}>
 						{tasks.map((task, index) => (
 							<Draggable
-								key={task.id}
+								key={task.id ? task.id.toString() : ""}
 								draggableId={task.id ? task.id.toString() : ""}
 								index={index}
 							>
 								{(provided) => (
 									<li
+										key={task.id ? task.id.toString() : ""}
 										ref={provided.innerRef}
 										{...provided.draggableProps}
 										{...provided.dragHandleProps}

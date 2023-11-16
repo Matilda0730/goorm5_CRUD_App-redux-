@@ -1,8 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { clearAllTasks } from "../features/createSlice";
+import { showToastError } from "../utils/toastmessage";
 
-export const ClearAllTasks = React.memo(({ showToastError }) => {
+export const ClearAllTasks = React.memo(() => {
 	const dispatch = useDispatch();
 
 	const deleteAllTasks = () => {

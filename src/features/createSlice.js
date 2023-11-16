@@ -59,6 +59,9 @@ export const tasksSlice = createSlice({
 			});
 			state.tasks = updatedItems;
 		}, //이름 맞추기
+		setDnDTasks(state, action) {
+			state.tasks = action.payload;
+		},
 	},
 });
 
@@ -75,6 +78,7 @@ export const {
 	getTotalPrice,
 	handleRemoveTask,
 	editTask,
+	setDnDTasks,
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

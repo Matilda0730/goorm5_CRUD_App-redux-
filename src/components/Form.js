@@ -13,7 +13,6 @@ import {
 	setEditingText,
 	setPrice,
 	setTask,
-	setTasks,
 } from "../features/createSlice";
 import { showToastSuccess, showToastWarn } from "../utils/toastmessage";
 
